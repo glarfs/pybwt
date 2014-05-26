@@ -20,24 +20,24 @@ def ibwt(r):
 def main(argv):
     # parse command line options
     try:
-        opts, args = getopt.getopt(argv, "hed", ["help"])
-    except getopt.error, msg:
+        opts = getopt.getopt(argv, "hed", ["help"])
+    except getopt.error as msg:
         print msg
         print "for help use --help"
         sys.exit(2)
     # process options
-    for o, a in opts:
-	if o in ("-d", "--decode"):
-	    string = raw_input()
-	    print(ibwt(string))
-	    sys.exit(0)
-	elif o in ("-e", "--encode"):
-	    string = raw_input()
-	    print(bwt(string))
-	    sys.exit(0)
-    print 'Decodifica Codifica utilitzant l\'algoritme Burrows-Wheeler'
-    print 'test.py -d --decode decodifica '
-    print 'test.py -e --encode codific codifica'
+    for o in opts:
+        if o in ("-d", "--decode"):
+            string = input()
+            print(ibwt(string))
+            sys.exit(0)
+        elif o in ("-e", "--encode"):
+            string = input()
+            print(bwt(string))
+            sys.exit(0)
+    print 'Encode and decodify unsing Burrows-Wheeler algorithm'
+    print 'test.py -d --decode decodify '
+    print 'test.py -e --encode encode'
     # process arguments
     sys.exit(2)
 
