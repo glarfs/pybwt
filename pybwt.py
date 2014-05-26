@@ -1,6 +1,12 @@
 #!/usr/bin/python
 import sys
 import getopt
+def usage():
+    print ('Encode and decodify unsing Burrows-Wheeler algorithm')
+    print ('test.py -d --decode decodify ')
+    print ('test.py -e --encode encode')    
+    return
+    
 def bwt(s):
     """Apply Burrows-Wheeler transform to input string."""
     assert "\0" not in s, "Input string cannot contain null character ('\\0')"
@@ -20,25 +26,23 @@ def ibwt(r):
 def main(argv):
     # parse command line options
     try:
-        opts = getopt.getopt(argv, "hed", ["help"])
-    except getopt.error as msg:
-        print msg
-        print "for help use --help"
+        opts, args = getopt.getopt(argv, "hed", ["help"])
+    except getopt.GetoptError as err:
+        print (err)
+        usage()
         sys.exit(2)
     # process options
-    for o in opts:
-        if o in ("-d", "--decode"):
-            string = input()
-            print(ibwt(string))
-            sys.exit(0)
-        elif o in ("-e", "--encode"):
-            string = input()
-            print(bwt(string))
-            sys.exit(0)
-    print 'Encode and decodify unsing Burrows-Wheeler algorithm'
-    print 'test.py -d --decode decodify '
-    print 'test.py -e --encode encode'
-    # process arguments
+    if opts:
+        for o, a in opts:
+            if o in ("-d", "--decode"):
+                string = input()
+                print(ibwt(string))
+                sys.exit(0)
+            elif o in ("-e", "--encode"):
+                string = input()
+                print(bwt(string))
+                sys.exit(0)    
+    usage()
     sys.exit(2)
 
 if __name__ == "__main__":
